@@ -2,6 +2,7 @@
 // components/VideoCarousel.tsx
 import { useRef, useEffect, useState, JSX } from 'react';
 import { motion, useAnimationControls } from 'framer-motion';
+import { VelocityText } from '../ui/VelocityText';
 
 // Define TypeScript interfaces
 interface CarouselItem {
@@ -121,8 +122,8 @@ export default function VideoCarousel(): JSX.Element {
           </motion.div>
         </div>
         
-        
       </div>
+        <VelocityText></VelocityText>
     </div>
   );
 }

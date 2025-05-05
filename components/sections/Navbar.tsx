@@ -65,7 +65,7 @@ const navItems: NavItem[] = [
 
 const MufferLogo: React.FC = () => (
   <div className="flex items-center space-x-2">
-    <span className="text-3xl font-black text-blue-900">muffer</span>
+    <span className="text-3xl font-black text-blue-500">muffer</span>
   </div>
 );
 

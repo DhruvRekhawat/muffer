@@ -3,9 +3,10 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import AnimatedButton from "../ui/AnimatedButton";
+import { Card } from "../ui/card";
 const Hero = () => {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-16 text-center">
+    <div className="max-w-6xl mx-auto px-4 py-16 text-center mt-16">
       {/* Available Badge */}
       <div className="flex justify-center mb-6">
         <div className="bg-gray-100 text-gray-800 px-4 py-2 rounded-full flex items-center space-x-2">
@@ -17,11 +18,6 @@ const Hero = () => {
       {/* Main Headline */}
       <h1 className="text-5xl md:text-6xl font-bold mb-8">
         Short-Form video{" "}
-        <span className="inline-flex items-center">
-          <Image src="/tiktok-icon.svg" width={56} height={56} alt="TikTok" className="mx-1" />
-          <Image src="/instagram-icon.svg" width={56} height={56} alt="Instagram" className="mx-1" />
-          <Image src="/youtube-icon.svg" width={56} height={56} alt="YouTube" className="mx-1" />
-        </span>{" "}
         editing
         <br />
         that skyrockets your views
