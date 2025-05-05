@@ -3,7 +3,7 @@
 export default function Footer() {
     return (
       <div className="max-w-6xl mx-auto px-4 py-8 ">
-        <div className="bg-blue-500 text-white rounded-3xl md:p-16 p-8 shadow-xl">
+        <div className="bg-blue-600 text-white rounded-3xl md:p-16 p-8 shadow-xl">
           {/* Logo and Tagline */}
           <div className="mb-10">
             <h1 className="text-white text-6xl font-bold mb-6">muffer<span className="text-yellow-400 inline-block -rotate-12 -translate-y-0.5">{" "}it!</span>

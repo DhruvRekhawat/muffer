@@ -6,7 +6,8 @@ import SmoothScroll from "@/components/ui/SmoothScroll";
 
 
 const poppins = Poppins({
-  weight: ["400","600","900"]
+  weight: ["400","600","900"],
+  subsets:["latin"]
 })
 
 
