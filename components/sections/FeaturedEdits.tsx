@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState, JSX } from 'react';
 import { motion, useAnimationControls } from 'framer-motion';
 import { VelocityText } from '../ui/VelocityText';
+import { Video } from 'lucide-react';
 
 // Define TypeScript interfaces
 interface CarouselItem {
@@ -88,12 +89,10 @@ export default function VideoCarousel(): JSX.Element {
   }, [isAutoplayActive]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="relative w-full overflow-hidden bg-gray-50 py-12">
+    <div className="relative w-full overflow-hidden py-12">
       <div className="container mx-auto px-4">
-        <h2 className="flex items-center text-xl font-medium text-gray-800 mb-8">
-          <span className="inline-block w-8 h-0.5 bg-gray-400 mr-4"></span>
-          Highlighted edits
-          <span className="ml-auto text-gray-500">(01)</span>
+        <h2 className="flex items-center text-md font-medium text-blue-500 bg-accent w-fit px-4 py-2 rounded-full mb-8">
+          <Video className='h-4'></Video> Highlighted edits
         </h2>
 
         <div className="relative overflow-hidden" ref={containerRef}>

@@ -1,33 +1,87 @@
+import { useState, useEffect, useRef } from "react";
 import { Badge } from "@/components/ui/badge";
 import { BadgeCheck, BadgeDollarSign } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface MonthlyBundlesProps {
   activeTab: boolean;
 }
 
 const MonthlyBundles = ({ activeTab }: MonthlyBundlesProps) => {
-  return (
-    <div className={`space-y-8 ${activeTab ? 'animate-fade-in-up' : ''}`}>
-      <div className="text-center mb-8">
-        <h3 className="text-2xl font-bold text-muffer-dark-text">
-          Monthly Subscription Bundles
-        </h3>
-        <p className="text-muffer-light-text mt-2">
-          For SMBs & Regular Content Creators
-        </p>
-      </div>
+  const [isVisible, setIsVisible] = useState(false);
+  const bundlesRef = useRef<HTMLDivElement>(null);
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {bundles.map((bundle, index) => (
-          <BundleCard 
-            key={index} 
-            bundle={bundle} 
-            isPopular={bundle.name === "Growth Bundle"} 
-            delay={index * 0.1}
-            activeTab={activeTab}
-          />
-        ))}
-      </div>
+  // Handle intersection observer for scroll animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (bundlesRef.current) {
+      observer.observe(bundlesRef.current);
+    }
+
+    return () => {
+      if (bundlesRef.current) {
+        observer.unobserve(bundlesRef.current);
+      }
+    };
+  }, []);
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      }
+    }
+  };
+
+  return (
+    <div ref={bundlesRef}>
+      <motion.div 
+        className="space-y-8"
+        initial={{ opacity: 0 }}
+        animate={(isVisible && activeTab) ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <motion.div 
+          className="text-center mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={(isVisible && activeTab) ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <h3 className="text-2xl font-bold text-muffer-dark-text">
+            Monthly Subscription Bundles
+          </h3>
+          <p className="text-muffer-light-text mt-2">
+            For SMBs & Regular Content Creators
+          </p>
+        </motion.div>
+
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          variants={container}
+          initial="hidden"
+          animate={(isVisible && activeTab) ? "show" : "hidden"}
+        >
+          {bundles.map((bundle, index) => (
+            <BundleCard
+              key={index}
+              bundle={bundle}
+              isPopular={bundle.name === "Growth Bundle"}
+              index={index}
+            />
+          ))}
+        </motion.div>
+      </motion.div>
     </div>
   );
 };
@@ -42,47 +96,55 @@ interface Bundle {
 interface BundleCardProps {
   bundle: Bundle;
   isPopular: boolean;
-  delay: number;
-  activeTab: boolean;
+  index: number;
 }
 
-const BundleCard = ({ bundle, isPopular, delay, activeTab }: BundleCardProps) => {
-  const animationDelay = activeTab ? `${delay}s` : "0s";
-  
+const BundleCard = ({ bundle, isPopular, index }: BundleCardProps) => {
+  const item = {
+    hidden: { opacity: 0, y: 40 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.5,
+      }
+    }
+  };
+
   return (
-    <div 
-      className={`rounded-xl p-6 border transition-all duration-300 ${
-        isPopular 
-          ? 'border-muffer-purple bg-muffer-popular-accent shadow-md' 
+    <motion.div
+      className={`rounded-xl p-6 border ${
+        isPopular
+          ? 'border-muffer-purple bg-muffer-popular-accent shadow-md'
           : 'border-gray-200 hover:border-muffer-purple hover:bg-muffer-card-hover'
       }`}
-      style={{ 
-        opacity: activeTab ? 1 : 0,
-        transform: activeTab ? 'translateY(0)' : 'translateY(20px)',
-        transition: `opacity 0.5s ease, transform 0.5s ease`,
-        transitionDelay: animationDelay
+      variants={item}
+      whileHover={{ 
+        scale: 1.02,
+        boxShadow: isPopular ? "0px 8px 20px rgba(0, 0, 0, 0.12)" : "0px 6px 15px rgba(0, 0, 0, 0.08)"
       }}
+      transition={{ duration: 0.3 }}
     >
       {isPopular && (
-        <Badge 
+        <Badge
           className="bg-muffer-purple hover:bg-muffer-purple/90 mb-4 animate-pulse-soft"
         >
           <BadgeCheck className="h-3.5 w-3.5 mr-1" />
           Popular
         </Badge>
       )}
-      
+     
       <h3 className="text-xl font-bold text-muffer-dark-text">
         {bundle.name}
       </h3>
-      
+     
       <div className="mt-4">
         <span className="text-3xl font-bold text-muffer-dark-text">
           ₹{bundle.price.toLocaleString()}
         </span>
         <span className="text-sm text-muffer-light-text">/month</span>
       </div>
-      
+     
       <div className="mt-6">
         <h4 className="text-sm font-medium text-muffer-dark-text mb-2">
           Deliverables:
@@ -98,14 +160,19 @@ const BundleCard = ({ bundle, isPopular, delay, activeTab }: BundleCardProps) =>
           ))}
         </ul>
       </div>
-      
-      <div className="mt-6 flex items-center">
+     
+      <motion.div 
+        className="mt-6 flex items-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
+      >
         <BadgeDollarSign className="h-5 w-5 text-green-600 mr-2" />
         <span className="text-sm font-medium text-green-600">
           {bundle.savings} savings vs. standalone
         </span>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

@@ -30,12 +30,13 @@ import {
     return (
       <section
         ref={targetRef}
-        className="h-[100vh] bg-neutral-50 text-neutral-950"
+        className="h-[75vh] mt-12 bg-neutral-50 text-neutral-950"
       >
-        <div className="sticky top-0 flex h-full items-center overflow-hidden">
+        <div className="sticky top-0 flex h-full items-end-safe overflow-hidden justify-baseline">
           <motion.p
             style={{ skewX, x }}
-            className="origin-bottom-left whitespace-nowrap text-5xl uppercase leading-[0.85] md:text-7xl md:leading-[0.85]"
+            className="origin-bottom-left whitespace-nowrap text-5xl uppercase leading-[0.85] md:text-7xl md:leading-[0.85]
+            bg-blue-600 py-4 text-white -rotate-6"
           >
             Muffer Karo 💪 Muffer Karo 💪 Muffer Karo 💪 Muffer Karo 💪 Muffer Karo 💪  Muffer Karo 💪 Muffer Karo 💪
           </motion.p>

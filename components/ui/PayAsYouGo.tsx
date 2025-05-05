@@ -1,9 +1,11 @@
 "use client"
-import { useState, useEffect, useRef } from "react";
 import { Badge } from "@/components/ui/badge";
-import { BadgeCheck, CirclePlus, Film, Video, Package2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { BadgeCheck, CirclePlus, Film, Package2, Video } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { PulsatingButton } from "../magicui/pulsating-button";
 
 interface PayAsYouGoPricingProps {
   activeTab: boolean;
@@ -36,6 +38,17 @@ const PayAsYouGoPricing = ({ activeTab }: PayAsYouGoPricingProps) => {
     };
   }, []);
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      }
+    }
+  };
+
   const productTypes = [
     {
       id: "editmax",
@@ -60,7 +73,12 @@ const PayAsYouGoPricing = ({ activeTab }: PayAsYouGoPricingProps) => {
   return (
     <div ref={pricingRef}>
       <div className="flex flex-col items-center mb-10 space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full max-w-2xl">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full max-w-2xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isVisible && activeTab ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
           {productTypes.map((product) => (
             <Button
               key={product.id}
@@ -75,62 +93,79 @@ const PayAsYouGoPricing = ({ activeTab }: PayAsYouGoPricingProps) => {
               {product.name}
             </Button>
           ))}
-        </div>
+        </motion.div>
         
-        <div className="text-center">
+        <motion.div 
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isVisible && activeTab ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           <p className="text-muffer-light-text mt-1">
             {productTypes.find(p => p.id === activeProduct)?.description}
           </p>
-        </div>
+        </motion.div>
       </div>
 
       <div>
         {activeProduct === "editmax" && (
-          <div className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <motion.div 
+            className="space-y-8"
+            variants={container}
+            initial="hidden"
+            animate={(isVisible && activeTab) ? "show" : "hidden"}
+          >
+            <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {editMaxPlans.map((plan, index) => (
                 <PricingCard 
                   key={index}
                   plan={plan}
                   isPopular={plan.name === "Standard"}
-                  delay={index * 0.1}
-                  isVisible={isVisible && activeTab}
+                  index={index}
                 />
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
 
         {activeProduct === "admax" && (
-          <div className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <motion.div 
+            className="space-y-8"
+            variants={container}
+            initial="hidden"
+            animate={(isVisible && activeTab) ? "show" : "hidden"}
+          >
+            <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {adMaxPlans.map((plan, index) => (
                 <PricingCard 
                   key={index}
                   plan={plan}
                   isPopular={plan.name === "Creator Ad (UGC)"}
-                  delay={index * 0.1}
-                  isVisible={isVisible && activeTab}
+                  index={index}
                 />
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
 
         {activeProduct === "contentmax" && (
-          <div className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <motion.div 
+            className="space-y-8"
+            variants={container}
+            initial="hidden"
+            animate={(isVisible && activeTab) ? "show" : "hidden"}
+          >
+            <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {contentMaxPlans.map((plan, index) => (
                 <PricingCard 
                   key={index}
                   plan={plan}
                   isPopular={plan.name === "Standard"}
-                  delay={index * 0.1}
-                  isVisible={isVisible && activeTab}
+                  index={index}
                 />
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
       </div>
     </div>
@@ -154,25 +189,34 @@ interface Addon {
 interface PricingCardProps {
   plan: Plan;
   isPopular: boolean;
-  delay: number;
-  isVisible: boolean;
+  index: number;
 }
 
-const PricingCard = ({ plan, isPopular, delay, isVisible }: PricingCardProps) => {
-  const animationDelay = `${delay}s`;
+const PricingCard = ({ plan, isPopular }: PricingCardProps) => {
+  const item = {
+    hidden: { opacity: 0, y: 40 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.5,
+      }
+    }
+  };
   
   return (
-    <div 
-      className={`rounded-xl p-6 border transition-all duration-500 ${
+    <motion.div 
+      className={`rounded-xl p-6 border ${
         isPopular 
-          ? 'border-muffer-purple bg-muffer-popular-accent shadow-md' 
-          : 'border-gray-200 hover:border-muffer-purple hover:bg-muffer-card-hover'
+          ? 'border-blue-600 bg-blue-600 shadow-md text-white' 
+          : 'border-gray-200 '
       }`}
-      style={{ 
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
-        transitionDelay: animationDelay
+      variants={item}
+      whileHover={{ 
+        scale: 1.02,
+        boxShadow: isPopular ? "0px 8px 20px rgba(0, 0, 0, 0.12)" : "0px 6px 15px rgba(0, 0, 0, 0.08)"
       }}
+      transition={{ duration: 0.3 }}
     >
       {isPopular && (
         <Badge 
@@ -211,7 +255,7 @@ const PricingCard = ({ plan, isPopular, delay, isVisible }: PricingCardProps) =>
       </div>
       
       <div className="mt-6">
-        <h4 className="text-sm font-medium text-muffer-dark-text mb-2">
+        <h4 className={`text-sm font-medium ${isPopular ? 'text-white font-semibold' : 'text-blue-800'} mb-2`}>
           Popular Add-ons:
         </h4>
         <ul className="space-y-2">
@@ -223,7 +267,9 @@ const PricingCard = ({ plan, isPopular, delay, isVisible }: PricingCardProps) =>
           ))}
         </ul>
       </div>
-    </div>
+
+      <PulsatingButton className="w-full mt-4 h-16 "> Get Started </PulsatingButton>
+    </motion.div>
   );
 };
 

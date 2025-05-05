@@ -18,6 +18,8 @@ import {
 } from "@/components/ui/navigation-menu"
 import { Menu, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn } from "@/lib/utils"
+import { PulsatingButton } from '../magicui/pulsating-button';
+import Link from 'next/link';
 
 // TypeScript interfaces for navigation items
 interface NavChild {
@@ -35,20 +37,20 @@ interface NavItem {
 // Data for the navigation items
 const navItems: NavItem[] = [
   {
-    title: 'Product',
+    title: 'Services',
     href: '#',
     children: [
-      { title: 'Features', href: '#', description: 'Explore our powerful features' },
-      { title: 'Pricing', href: '#', description: 'Flexible plans for every need' },
-      { title: 'Use Cases', href: '#', description: 'See how others succeed with Muffer' },
+      { title: 'Edit Max', href: '#', description: 'Explore our powerful features' },
+      { title: 'Content Max', href: '#', description: 'Flexible plans for every need' },
+      { title: 'Ad Max', href: '#', description: 'See how others succeed with Muffer' },
     ],
   },
   {
     title: 'Getting started',
     href: '#',
     children: [
-      { title: 'Tutorials', href: '#', description: 'Learn step by step' },
-      { title: 'Documentation', href: '#', description: 'Detailed technical guides' },
+      { title: 'How it Works', href: '#', description: 'Learn step by step' },
+      { title: 'Get your Muffer Buddy', href: '#', description: 'Detailed technical guides' },
       { title: 'Examples', href: '#', description: 'Ready-to-use code samples' },
     ],
   },
@@ -179,7 +181,7 @@ const Navbar: React.FC = () => {
                           <>
                             <NavigationMenuTrigger className='text-lg hover:cursor-pointer bg-transparent'>{item.title}</NavigationMenuTrigger>
                             <NavigationMenuContent>
-                              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-3 lg:w-[600px]">
                                 {item.children.map((child) => (
                                   <ListItem
                                     key={child.title}
@@ -208,7 +210,11 @@ const Navbar: React.FC = () => {
 
               {/* Actions (Login, Join Waitlist) */}
               <div className="hidden md:flex items-center gap-4">
-                <Button className="rounded-xl font-bold text-white bg-black" size={"lg"}>Book A Call</Button>
+                <Link href="#pricing">
+                <PulsatingButton >
+                  View Pricing
+                  </PulsatingButton>
+                  </Link>
               </div>
 
               {/* Mobile Menu Button */}

@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import AnimatedButton from "../ui/AnimatedButton";
-import { Card } from "../ui/card";
+import { InteractiveHoverButton } from "../magicui/interactive-hover-button";
 const Hero = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-16 text-center mt-16">
@@ -34,7 +33,9 @@ const Hero = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-         <AnimatedButton text="Book A Call" href="/" ></AnimatedButton>
+         <InteractiveHoverButton>
+          Start Your Journey
+         </InteractiveHoverButton>
         </motion.div>
 
         <div className="flex items-center">

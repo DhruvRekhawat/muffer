@@ -2,7 +2,7 @@ import HeroVideoDialog from "../magicui/hero-video-dialog";
 
 export default function Video() {
   return (
-    <div className="relative p-16">
+    <div className="relative md:p-16 ">
       <HeroVideoDialog
         className="block dark:hidden"
         animationStyle="from-center"
