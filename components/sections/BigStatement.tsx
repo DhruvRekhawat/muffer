@@ -5,13 +5,13 @@ import { WordRotate } from "@/components/magicui/word-rotate";
 
 const BigStatement = () => {
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen py-20 px-4 bg-gradient-to-b from-white to-gray-100">
+    <div className="flex flex-col justify-center items-center min-h-[50vh] py-20 px-4 bg-gradient-to-b from-white to-gray-100">
       <AnimatePresence>
         <motion.div
           className="text-center"
           initial={{ y: 120, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-wide">
  <WordRotate words={["Content?", "Ads?", "Editing?", "Podcasts?"]}></WordRotate>

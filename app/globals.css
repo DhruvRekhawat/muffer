@@ -150,3 +150,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+.infinite-text-container {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.infinite-text {
+  display: inline-block;
+  will-change: transform;
+}

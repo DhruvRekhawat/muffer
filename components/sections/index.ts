@@ -11,6 +11,7 @@ import Navbar from "./Navbar";
 import Pricing from "./Pricing";
 import Testimonials from "./Testimonials";
 import TrustedBy from "./TrustedBy";
+import Features from "./Features";
 
 export {
   AboutUs,
@@ -25,5 +26,6 @@ export {
   Pricing,
   Testimonials,
   Video,
-  TrustedBy
+  TrustedBy,
+  Features 
 };

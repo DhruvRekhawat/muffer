@@ -122,7 +122,7 @@ export default function VideoCarousel(): JSX.Element {
         </div>
         
       </div>
-        <VelocityText></VelocityText>
+        <VelocityText ></VelocityText>
     </div>
   );
 }
