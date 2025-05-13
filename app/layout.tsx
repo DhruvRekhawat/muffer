@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Footer, Navbar } from "@/components/sections";
 import SmoothScroll from "@/components/ui/SmoothScroll";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 
 const poppins = Poppins({
@@ -31,6 +32,7 @@ export default function RootLayout({
         {children}
         </SmoothScroll>
         <Footer/>
+        <GoogleAnalytics gaId="G-XYZ" />
       </body>
     </html>
   );

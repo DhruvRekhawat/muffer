@@ -21,7 +21,7 @@ const TnC = () => {
   const effectiveDate = "May 13, 2025";
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col font-poppins">
+    <div className="min-h-screen bg-gray-50 flex flex-col mt-16">
       
       <main className="flex-grow container mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
