@@ -1,6 +1,6 @@
 "use client"
 
-import type { FormData } from "../muffer-order-form"
+import type { FormData } from "./muffer-order-form"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"

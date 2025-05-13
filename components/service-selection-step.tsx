@@ -1,6 +1,6 @@
 "use client"
 
-import type { FormData } from "../muffer-order-form"
+import type { FormData } from "./muffer-order-form"
 import { Button } from "@/components/ui/button"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
