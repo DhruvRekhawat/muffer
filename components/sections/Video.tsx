@@ -7,7 +7,7 @@ export default function Video() {
         className="block dark:hidden"
         animationStyle="from-center"
         videoSrc="https://youtu.be/HQwLPhE2zys?si=EUnGI0x_hsv5lf5N"
-        thumbnailSrc="https://www.lummi.ai/api/render/image/05bd2773-e963-459a-849f-e5188b79d021?token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjA1YmQyNzczLWU5NjMtNDU5YS04NDlmLWU1MTg4Yjc5ZDAyMSIsImRvd25sb2FkU2l6ZSI6Im1lZGl1bSIsInJlbmRlclNwZWNzIjp7ImVmZmVjdHMiOnsicmVmcmFtZSI6e319fSwic2hvdWxkQXV0b0Rvd25sb2FkIjpmYWxzZSwianRpIjoiM1dSREJLemxtNWFtVkRzQWRPZVlNIiwiaWF0IjoxNzQ2NDE0MTYyLCJleHAiOjE3NDY0MTQyMjJ9.2rWINVh4QPUtQi9WLNh5X81YB8E86DA7Kmwfpg9vQHA"
+        thumbnailSrc="/illustrations/Rating.svg"
         thumbnailAlt="Hero Video"
       />
       {/* <HeroVideoDialog

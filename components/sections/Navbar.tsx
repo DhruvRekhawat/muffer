@@ -167,9 +167,9 @@ const Navbar: React.FC = () => {
           >
             <div className="flex items-center justify-between h-16 md:h-20">
               {/* Logo */}
-              <a href="#" className="flex-shrink-0">
+              <Link href="/" className="flex-shrink-0">
                 <MufferLogo />
-              </a>
+              </Link>
 
               {/* Desktop Navigation */}
               <div className="hidden md:block">
