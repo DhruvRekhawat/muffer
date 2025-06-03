@@ -1,5 +1,6 @@
 "use client"
 
+import { Video } from "@/components/sections";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,20 +10,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { VelocityText } from "@/components/ui/VelocityText";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   CheckCircle,
-  Play,
-  Star,
-  Users,
-  VideoIcon,
   LucideIcon,
+  Play,
+  Star
 } from "lucide-react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ReactNode, FC } from "react";
-import { Video } from "@/components/sections";
-import { VelocityText } from "@/components/ui/VelocityText";
+import { FC, ReactNode } from "react";
 
 // Type definitions
 interface Theme {
