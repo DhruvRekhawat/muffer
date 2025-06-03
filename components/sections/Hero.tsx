@@ -93,7 +93,7 @@ const Hero = () => {
 
       {/* Main Headline */}
       <motion.h1 
-        className="text-5xl md:text-6xl font-bold mb-8"
+        className="text-4xl md:text-6xl font-bold mb-8 leading-tight"
         variants={itemVariants}
       >
         <motion.span 
@@ -102,7 +102,7 @@ const Hero = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          Short-Form video{" "}
+          Speedy Edits.{" "}
         </motion.span>
         <motion.span 
           className="inline-block"
@@ -110,7 +110,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
-          editing
+          On-Demand.
         </motion.span>
         <br />
         <motion.span 
@@ -119,16 +119,16 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.5 }}
         >
-          that skyrockets your views
+          Unlimited Revisions.
         </motion.span>
       </motion.h1>
 
       {/* Subtitle */}
       <motion.p 
-        className="text-xl text-gray-700 max-w-3xl mx-auto mb-10"
+        className="text-lg text-gray-700 max-w-xl mx-auto mb-10"
         variants={itemVariants}
       >
-        Stand out in the fast-paced world of short-form content. We create high-energy, engaging edits that keep viewers hooked and help you grow your audience.
+        Muffer makes ordering high-quality creative content easy. Get videos, ads, and edits delivered fast, without the fuss
       </motion.p>
 
       {/* CTA Button and Trust Badges */}
@@ -144,7 +144,7 @@ const Hero = () => {
           transition={{ delay: 0.8, duration: 0.5 }}
         >
           <InteractiveHoverButton>
-            Start Your Journey
+            Order Now!
           </InteractiveHoverButton>
         </motion.div>
 
@@ -165,7 +165,7 @@ const Hero = () => {
                 variants={avatarVariants}
                 custom={i}
               >
-                <Image src={`/client-${i}.png`} width={40} height={40} alt={`Client ${i}`} />
+                <Image src={`/clients/client${i}.png`} width={40} height={40} alt={`Client ${i}`} />
               </motion.div>
             ))}
           </motion.div>

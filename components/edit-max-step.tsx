@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import type { FormData } from "./muffer-order-form"
 import { Button } from "@/components/ui/button"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -19,7 +19,7 @@ export default function EditMaxStep({ formData, updateFormData, nextStep, prevSt
   const [totalPrice, setTotalPrice] = useState(0)
 
   // Calculate base price based on selected plan
-  const getBasePriceForPlan = () => {
+  const getBasePriceForPlan = useCallback(() => {
     switch (formData.editMaxPlan) {
       case "Short":
         return 1499
@@ -30,10 +30,10 @@ export default function EditMaxStep({ formData, updateFormData, nextStep, prevSt
       default:
         return 0
     }
-  }
+  }, [formData.editMaxPlan])
 
   // Calculate add-on prices
-  const getAddOnPrice = (addOn: string) => {
+  const getAddOnPrice = useCallback((addOn: string) => {
     switch (addOn) {
       case "voiceover":
         return 1500
@@ -52,7 +52,7 @@ export default function EditMaxStep({ formData, updateFormData, nextStep, prevSt
       default:
         return 0
     }
-  }
+  }, [formData.editMaxPlan])
 
   // Update total price whenever selections change
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function EditMaxStep({ formData, updateFormData, nextStep, prevSt
     const newTotal = basePrice + addOnsPrice
     setTotalPrice(newTotal)
     updateFormData({ totalPrice: newTotal })
-  }, [formData.editMaxPlan, formData.addOns])
+  }, [formData.editMaxPlan, formData.addOns, getBasePriceForPlan, updateFormData, getAddOnPrice])
 
   const handleAddOnToggle = (addOn: string) => {
     const currentAddOns = [...formData.addOns]
@@ -79,6 +79,7 @@ export default function EditMaxStep({ formData, updateFormData, nextStep, prevSt
       })
     }
   }
+
 
   return (
     <div className="space-y-6">

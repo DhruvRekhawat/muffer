@@ -37,12 +37,12 @@ interface NavItem {
 // Data for the navigation items
 const navItems: NavItem[] = [
   {
-    title: 'Services',
+    title: 'Products',
     href: '#',
     children: [
-      { title: 'Edit Max', href: '#', description: 'Explore our powerful features' },
-      { title: 'Content Max', href: '#', description: 'Flexible plans for every need' },
-      { title: 'Ad Max', href: '#', description: 'See how others succeed with Muffer' },
+      { title: 'Edit Max', href: '/editmax', description: 'Explore our powerful features' },
+      { title: 'Content Max', href: '/contentmax', description: 'Flexible plans for every need' },
+      { title: 'Ad Max', href: '/admax', description: 'See how others succeed with Muffer' },
     ],
   },
   {
@@ -59,7 +59,7 @@ const navItems: NavItem[] = [
     href: '#',
     children: [
       { title: 'About Us', href: '#', description: 'Our mission and values' },
-      { title: 'Contact', href: '#', description: 'Get in touch with our team' },
+      { title: 'Blogs', href: '/blogs', description: 'Get in touch with our team' },
       { title: 'Careers', href: '#', description: 'Join our growing team' },
     ],
   },
@@ -210,9 +210,9 @@ const Navbar: React.FC = () => {
 
               {/* Actions (Login, Join Waitlist) */}
               <div className="hidden md:flex items-center gap-4">
-                <Link href="#pricing">
+                <Link href="/order">
                 <PulsatingButton >
-                  View Pricing
+                  Order Now
                   </PulsatingButton>
                   </Link>
               </div>

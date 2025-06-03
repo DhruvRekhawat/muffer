@@ -10,28 +10,29 @@ interface MonthlyBundlesProps {
 const MonthlyBundles = ({ activeTab }: MonthlyBundlesProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const bundlesRef = useRef<HTMLDivElement>(null);
-
-  // Handle intersection observer for scroll animation
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (bundlesRef.current) {
-      observer.observe(bundlesRef.current);
-    }
-
-    return () => {
-      if (bundlesRef.current) {
-        observer.unobserve(bundlesRef.current);
+  
+// Handle intersection observer for scroll animation
+useEffect(() => {
+  const currentRef = bundlesRef.current; // Store the current ref value
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
       }
-    };
-  }, []);
+    },
+    { threshold: 0.1 }
+  );
+
+  if (currentRef) {
+    observer.observe(currentRef);
+  }
+
+  return () => {
+    if (currentRef) {
+      observer.unobserve(currentRef);
+    }
+  };
+}, []); // Empty dependency array means this runs once on mount and cleanup on unmount
 
   const container = {
     hidden: { opacity: 0 },

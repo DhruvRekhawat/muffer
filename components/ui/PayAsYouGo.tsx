@@ -16,27 +16,28 @@ const PayAsYouGoPricing = ({ activeTab }: PayAsYouGoPricingProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const pricingRef = useRef<HTMLDivElement>(null);
 
-  // Handle intersection observer for scroll animation
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (pricingRef.current) {
-      observer.observe(pricingRef.current);
-    }
-
-    return () => {
-      if (pricingRef.current) {
-        observer.unobserve(pricingRef.current);
+// Handle intersection observer for scroll animation
+useEffect(() => {
+  const currentRef = pricingRef.current; // Store the current ref value
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
       }
-    };
-  }, []);
+    },
+    { threshold: 0.1 }
+  );
+
+  if (currentRef) {
+    observer.observe(currentRef);
+  }
+
+  return () => {
+    if (currentRef) {
+      observer.unobserve(currentRef);
+    }
+  };
+}, []); 
 
   const container = {
     hidden: { opacity: 0 },

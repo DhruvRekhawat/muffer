@@ -21,8 +21,8 @@ interface VideoCarouselItemProps {
 const carouselItems: CarouselItem[] = [
   {
     id: 1,
-    videoSrc: '/videos/plane.mp4',
-    thumbnailSrc: '/images/plane-thumb.jpg',
+    videoSrc: '/video/editmax.mp4',
+    thumbnailSrc: '/illustrations/business-pitch.svg',
     views: '1.1M',
   },
   {
@@ -181,6 +181,7 @@ function VideoCarouselItem({ item, onPlayStateChange }: VideoCarouselItemProps):
           playsInline
           preload="metadata"
           onEnded={handleVideoEnd}
+          
         />
         
         {/* Play button overlay */}

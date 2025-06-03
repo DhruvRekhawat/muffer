@@ -13,7 +13,7 @@ import UploadStep from "./upload-step"
 import ReviewStep from "./review-step"
 import ConfirmationStep from "./confirmation-step"
 import ProgressBar from "./progress-bar"
-
+import Image from "next/image"
 export type FormData = {
   name: string
   phone: string
@@ -154,7 +154,7 @@ export default function MufferOrderForm() {
   return (
     <div className="space-y-6">
       <div className="flex justify-center">
-        <img src="/placeholder.svg?height=60&width=180" alt="Muffer Logo" className="h-15 w-auto" />
+          <Image src="/placeholder.svg?height=60&width=180" alt="Muffer Logo" className="h-15 w-auto" />
       </div>
 
       {!isSubmitted && <ProgressBar currentStep={currentStep} totalSteps={getTotalSteps()} />}

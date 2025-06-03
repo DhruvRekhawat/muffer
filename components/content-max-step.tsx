@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import type { FormData } from "./muffer-order-form"
 import { Button } from "@/components/ui/button"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -19,7 +19,7 @@ export default function ContentMaxStep({ formData, updateFormData, nextStep, pre
   const [totalPrice, setTotalPrice] = useState(0)
 
   // Calculate base price based on selected length
-  const getBasePriceForLength = () => {
+  const getBasePriceForLength = useCallback(() => {
     switch (formData.contentMaxLength) {
       case "Short":
         return 4999
@@ -30,10 +30,10 @@ export default function ContentMaxStep({ formData, updateFormData, nextStep, pre
       default:
         return 0
     }
-  }
+  }, [formData.contentMaxLength])
 
   // Calculate add-on prices
-  const getAddOnPrice = (addOn: string) => {
+  const getAddOnPrice = useCallback((addOn: string) => {
     switch (addOn) {
       case "graphics":
         return 2250
@@ -47,7 +47,7 @@ export default function ContentMaxStep({ formData, updateFormData, nextStep, pre
       default:
         return 0
     }
-  }
+  }, [formData.contentMaxLength])
 
   // Update total price whenever selections change
   useEffect(() => {
@@ -59,7 +59,7 @@ export default function ContentMaxStep({ formData, updateFormData, nextStep, pre
     const newTotal = basePrice + addOnsPrice
     setTotalPrice(newTotal)
     updateFormData({ totalPrice: newTotal })
-  }, [formData.contentMaxLength, formData.addOns])
+  }, [formData.contentMaxLength, formData.addOns, getBasePriceForLength, updateFormData, getAddOnPrice])
 
   const handleAddOnToggle = (addOn: string) => {
     const currentAddOns = [...formData.addOns]

@@ -1,6 +1,7 @@
 "use client"
 import { motion, useInView } from 'framer-motion';
-import { Award, ChevronDown, Clock, Edit, Film, Layers, Package2, Sparkles, Users, Video, Zap } from 'lucide-react';
+import { Award, ChevronDown, Clock, Edit, Film, Layers,  Package2, Sparkles, Users, Video, Zap } from 'lucide-react';
+import Link from 'next/link';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -16,6 +17,7 @@ interface FeatureCardProps {
   icon: React.ReactNode;
   features: FeatureItem[];
   imageUrl: string;
+  href: string;
   imageAlt: string;
   accentColor: string;
   reversed?: boolean;
@@ -25,8 +27,6 @@ interface LenisInstance {
   scrollTo: (target: string | HTMLElement, options?: { offset?: number; duration?: number; immediate?: boolean }) => void;
   on: (event: string, callback: (...args: any[]) => void) => void;
   off: (event: string, callback: (...args: any[]) => void) => void;
-  stop: () => void;
-  start: () => void;
 }
 
 declare global {
@@ -36,82 +36,69 @@ declare global {
 }
 
 export default function Features(): JSX.Element {
-  const containerRef = useRef<HTMLElement>(null)
-  const section1Ref = useRef<HTMLDivElement>(null)
-  const section2Ref = useRef<HTMLDivElement>(null)
-  const section3Ref = useRef<HTMLDivElement>(null)
-  const section4Ref = useRef<HTMLDivElement>(null)
+  const section1Ref = useRef<HTMLDivElement>(null);
+  const section2Ref = useRef<HTMLDivElement>(null);
+  const section3Ref = useRef<HTMLDivElement>(null);
+  const section4Ref = useRef<HTMLDivElement>(null);
   
-  const [currentSection, setCurrentSection] = useState<number>(0)
-  const [isScrolling, setIsScrolling] = useState<boolean>(false)
-  
+  const [isScrolling, setIsScrolling] = useState(false);
 
   // Section in-view detection
-  const section1InView = useInView(section1Ref, { amount: 0.5 })
-  const section2InView = useInView(section2Ref, { amount: 0.5 })
-  const section3InView = useInView(section3Ref, { amount: 0.5 })
-  const section4InView = useInView(section4Ref, { amount: 0.5 })
+  const section1InView = useInView(section1Ref, { amount: 0.5 });
+  const section2InView = useInView(section2Ref, { amount: 0.5 });
+  const section3InView = useInView(section3Ref, { amount: 0.5 });
+  const section4InView = useInView(section4Ref, { amount: 0.5 });
   
   // Update current section based on which is in view
-  useEffect(() => {
-    if (section1InView) setCurrentSection(0)
-    else if (section2InView) setCurrentSection(1)
-    else if (section3InView) setCurrentSection(2)
-    else if (section4InView) setCurrentSection(3)
-    console.log(currentSection,isScrolling)
 
-  }, [section1InView, section2InView, section3InView, section4InView])
 
   // Integration with Lenis for smooth scrolling
   useEffect(() => {
-    // Handle scroll events and update scroll state
     const handleScrollStart = () => {
-      setIsScrolling(true)
-    }
+      setIsScrolling(true);
+    };
     
     const handleScrollEnd = () => {
-      setIsScrolling(false)
-    }
+      setIsScrolling(false);
+    };
     
-    // Add scroll listeners if Lenis is available
     if (window.lenis) {
-      window.lenis.on('scroll', handleScrollStart)
+      window.lenis.on('scroll', handleScrollStart);
       
-      // Custom scroll complete detection
-      let scrollTimeout: NodeJS.Timeout
-      window.lenis.on('scroll', () => {
-        clearTimeout(scrollTimeout)
-        scrollTimeout = setTimeout(handleScrollEnd, 150)
-      })
-    }
-    
-    return () => {
-      // Clean up scroll listeners
-      if (window.lenis) {
-        window.lenis.off('scroll', handleScrollStart)
-      }
+      let scrollTimeout: NodeJS.Timeout;
+      const scrollListener = () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(handleScrollEnd, 150);
+      };
       
+      window.lenis.on('scroll', scrollListener);
+      
+      return () => {
+        window.lenis?.off('scroll', handleScrollStart);
+        window.lenis?.off('scroll', scrollListener);
+      };
     }
-  }, [])
+  }, []);
 
-  // Scroll to next section function with Lenis support
+  // Scroll to section function with Lenis support
   const scrollToSection = (index: number): void => {
-    const sections = [section1Ref, section2Ref, section3Ref, section4Ref]
-    if (sections[index]?.current) {
+    if (isScrolling) return;
+    
+    const sections = [section1Ref, section2Ref, section3Ref, section4Ref];
+    const targetSection = sections[index]?.current;
+    
+    if (targetSection) {
       if (window.lenis) {
-        // Use Lenis for smooth scrolling with slower duration
-        window.lenis.scrollTo(sections[index].current as HTMLElement, { 
+        window.lenis.scrollTo(targetSection, { 
           offset: 0,
-          duration: 1.5, // Slower scroll (1.5 seconds)
+          duration: 1.5,
           immediate: false
-        })
+        });
       } else {
-        // Fallback to native scrolling
-        sections[index].current?.scrollIntoView({ behavior: 'smooth' })
+        targetSection.scrollIntoView({ behavior: 'smooth' });
       }
-      setCurrentSection(index)
     }
-  }
+  };
 
   // Animation variants for cards
   const cardVariants = {
@@ -121,17 +108,16 @@ export default function Features(): JSX.Element {
       y: 0,
       transition: { 
         type: "spring", 
-        stiffness: 60, // Lower stiffness for smoother animation
+        stiffness: 60,
         damping: 15,
-        mass: 1.2, // Slightly higher mass for more physicality
+        mass: 1.2,
         velocity: 0.5
       }
-    },
-    exit: { opacity: 1, y: -50 }
-  }
+    }
+  };
 
   return (
-    <section className="overflow-hidden" ref={containerRef}>
+    <section className="overflow-hidden">
       <div className="mx-auto max-w-xl md:max-w-6xl px-6">
         <div className="text-center mb-12 pt-16 md:pt-24">
           <h2 className="text-4xl font-bold lg:text-5xl">Products</h2>
@@ -140,14 +126,9 @@ export default function Features(): JSX.Element {
           </p>
         </div>
         
-        {/* Feature Cards with Scroll Snapping */}
         <div className="relative">
           {/* Section 1: EDITMAX */}
-          <div 
-            ref={section1Ref} 
-            className="min-h-screen flex items-center scroll-mt-16"
-            id="section-1"
-          >
+          <div ref={section1Ref} className="min-h-screen flex items-center scroll-mt-16">
             <motion.div
               initial="hidden"
               animate={section1InView ? "visible" : "hidden"}
@@ -166,6 +147,7 @@ export default function Features(): JSX.Element {
                 imageUrl="/illustrations/business-video-presentation.svg"
                 imageAlt="EDITMAX illustration"
                 accentColor="bg-blue-500"
+                href='/editmax'
               />
               <div className="flex justify-center mt-16">
                 <button 
@@ -180,11 +162,7 @@ export default function Features(): JSX.Element {
           </div>
           
           {/* Section 2: ADMAX */}
-          <div 
-            ref={section2Ref} 
-            className="min-h-screen flex items-center scroll-mt-16"
-            id="section-2"
-          >
+          <div ref={section2Ref} className="min-h-screen flex items-center scroll-mt-16">
             <motion.div
               initial="hidden"
               animate={section2InView ? "visible" : "hidden"}
@@ -204,6 +182,7 @@ export default function Features(): JSX.Element {
                 imageAlt="ADMAX illustration"
                 accentColor="bg-green-500"
                 reversed={true}
+                href='/admax'
               />
               <div className="flex justify-center mt-16">
                 <button 
@@ -218,11 +197,7 @@ export default function Features(): JSX.Element {
           </div>
           
           {/* Section 3: CONTENTMAX */}
-          <div 
-            ref={section3Ref} 
-            className="min-h-screen flex items-center scroll-mt-16"
-            id="section-3"
-          >
+          <div ref={section3Ref} className="min-h-screen flex items-center scroll-mt-16">
             <motion.div
               initial="hidden"
               animate={section3InView ? "visible" : "hidden"}
@@ -241,6 +216,7 @@ export default function Features(): JSX.Element {
                 imageUrl="/illustrations/business-ideas(1).svg"
                 imageAlt="CONTENTMAX illustration"
                 accentColor="bg-purple-500"
+                href='/contentmax'
               />
               <div className="flex justify-center mt-16">
                 <button 
@@ -255,11 +231,7 @@ export default function Features(): JSX.Element {
           </div>
           
           {/* Section 4: SUBSCRIPTION BUNDLES */}
-          <div 
-            ref={section4Ref} 
-            className="min-h-screen flex items-center scroll-mt-16 pb-16 md:pb-24"
-            id="section-4"
-          >
+          <div ref={section4Ref} className="min-h-screen flex items-center scroll-mt-16 pb-16 md:pb-24">
             <motion.div
               initial="hidden"
               animate={section4InView ? "visible" : "hidden"}
@@ -279,15 +251,14 @@ export default function Features(): JSX.Element {
                 imageAlt="Subscription Bundles illustration"
                 accentColor="bg-amber-500"
                 reversed={true}
+                href='/subscription'
               />
             </motion.div>
           </div>
-          
-
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function FeatureCard({ 
@@ -296,7 +267,8 @@ function FeatureCard({
   icon, 
   features, 
   imageUrl, 
-  imageAlt, 
+  imageAlt,
+  href, 
   accentColor, 
   reversed = false 
 }: FeatureCardProps): JSX.Element {
@@ -322,24 +294,28 @@ function FeatureCard({
             ))}
           </ul>
           
-          <div className="mt-8 flex">
-            <button className={`${accentColor} text-white px-6 py-2 rounded-full font-medium hover:opacity-90 transition-opacity`}>
+          <div className="mt-8 flex ">
+            <Link href={href} className='cursor-pointer'>
+            <button className={`${accentColor} text-white px-6 py-2 rounded-full font-medium hover:opacity-90 transition-opacity cursor-pointer`}>
               Learn more
             </button>
+            </Link>
           </div>
         </div>
         
         <div className={`bg-gradient-to-b relative ${reversed ? 'md:order-1' : ''} from-zinc-100 to-transparent p-px dark:from-zinc-800`}>
-          <Image 
-            src={imageUrl} 
-            className="w-full h-full object-cover"
-            alt={imageAlt} 
-            width={10}
-            height={10}
-          />
+          <div className="w-full h-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center">
+            <Image 
+              src={imageUrl} 
+              className="w-full h-full object-cover"
+              alt={imageAlt} 
+              width={500}
+              height={500}
+            />
+          </div>
           <div className={`absolute top-0 left-0 w-full h-1 ${accentColor}`}></div>
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,12 +1,12 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import type { FormData } from "./muffer-order-form"
 import { Button } from "@/components/ui/button"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { ArrowLeft, ArrowRight, Film, Users } from "lucide-react"
+import { useCallback, useEffect, useState } from "react"
+import type { FormData } from "./muffer-order-form"
 
 interface AdMaxStepProps {
   formData: FormData
@@ -18,8 +18,8 @@ interface AdMaxStepProps {
 export default function AdMaxStep({ formData, updateFormData, nextStep, prevStep }: AdMaxStepProps) {
   const [totalPrice, setTotalPrice] = useState(0)
 
-  // Calculate base price based on selected style
-  const getBasePriceForStyle = () => {
+  // Calculate base price based on selected style - now memoized with useCallback
+  const getBasePriceForStyle = useCallback(() => {
     switch (formData.adMaxStyle) {
       case "Stock":
         return 3999
@@ -28,7 +28,7 @@ export default function AdMaxStep({ formData, updateFormData, nextStep, prevStep
       default:
         return 0
     }
-  }
+  }, [formData.adMaxStyle]) // Only recreate when adMaxStyle changes
 
   // Calculate add-on prices
   const getAddOnPrice = (addOn: string) => {
@@ -56,7 +56,7 @@ export default function AdMaxStep({ formData, updateFormData, nextStep, prevStep
     const newTotal = basePrice + addOnsPrice
     setTotalPrice(newTotal)
     updateFormData({ totalPrice: newTotal })
-  }, [formData.adMaxStyle, formData.addOns])
+  }, [formData.adMaxStyle, formData.addOns, updateFormData, getBasePriceForStyle])
 
   const handleAddOnToggle = (addOn: string) => {
     const currentAddOns = [...formData.addOns]
@@ -71,6 +71,7 @@ export default function AdMaxStep({ formData, updateFormData, nextStep, prevStep
       })
     }
   }
+
 
   return (
     <div className="space-y-6">

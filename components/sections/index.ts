@@ -12,6 +12,7 @@ import Pricing from "./Pricing";
 import Testimonials from "./Testimonials";
 import TrustedBy from "./TrustedBy";
 import Features from "./Features";
+import FAQs from "./faqs";
 
 export {
   AboutUs,
@@ -27,5 +28,6 @@ export {
   Testimonials,
   Video,
   TrustedBy,
-  Features 
+  Features,
+  FAQs
 };

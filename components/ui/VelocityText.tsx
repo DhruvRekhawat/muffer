@@ -22,35 +22,34 @@ export const VelocityText = () => {
   const skewX = useSpring(skewXRaw, { mass: 3, stiffness: 400, damping: 500 });
   const xRaw = useTransform(scrollYProgress, [0, 1], [0, -3000]);
   const x = useSpring(xRaw, { mass: 3, stiffness: 400, damping: 100 });
-  
+
   return (
-    <section
-      ref={targetRef}
-      className="h-[50vh] mt-12 "
-    >
+    <section ref={targetRef} className="h-[50vh] mt-12 ">
       <div className="sticky top-0 flex h-full items-center justify-center overflow-hidden">
         <div className="relative ">
-          {/* Bottom text - "Suffer Nhi" */}
+          {/* Bottom text - "Suffer Nahi" */}
           <motion.p
             style={{ skewX, x }}
-            className="origin-bottom-left whitespace-nowrap text-5xl uppercase leading-[0.85] md:text-7xl md:leading-[0.85]
-            bg-blue-600 py-4 text-white relative z-10 -rotate-3 translate-y-16"
+            className="origin-bottom-left whitespace-nowrap text-5xl lowercase leading-[0.85] md:text-7xl md:leading-[0.85]
+            bg-blue-600 py-4 text-white relative z-10 -rotate-3 translate-y-16 font-bold"
           >
             <span>
-            Suffer Nhi 🙅‍♂️ Suffer Nhi 🙅‍♂️ Suffer Nhi 🙅‍♂️ Suffer Nhi 🙅‍♂️ Suffer Nhi 🙅‍♂️ Suffer Nhi 🙅‍♂️ Suffer Nhi 🙅‍♂️ Suffer Nhi 🙅‍♂️ 
+              Suffer Nahi 🙅‍♂️ Suffer Nahi 🙅‍♂️ Suffer Nahi 🙅‍♂️ Suffer Nahi 🙅‍♂️ Suffer
+              Nahi 🙅‍♂️ Suffer Nahi 🙅‍♂️ Suffer Nahi 🙅‍♂️ Suffer Nahi 🙅‍♂️
             </span>
           </motion.p>
-          
+
           {/* Top text - "Muffer Karo" */}
           <motion.p
             style={{ skewX, x }}
-            className="origin-bottom-left whitespace-nowrap text-5xl uppercase leading-[0.85] md:text-7xl md:leading-[0.85]
-            bg-blue-600 py-4 text-white absolute z-20 -rotate-3 top-0 left-0 translate-y-40"
+            className="origin-bottom-left whitespace-nowrap text-5xl lowercase leading-[0.85] md:text-7xl md:leading-[0.85]
+            bg-blue-600 py-4 text-white absolute z-20 -rotate-3 top-0 left-0 translate-y-40 font-bold"
           >
-            Muffer Karo 💪 Muffer Karo 💪 Muffer Karo 💪 Muffer Karo 💪 Muffer Karo 💪 Muffer Karo 💪 Muffer Karo 💪
+            Muffer Karo 💪 Muffer Karo 💪 Muffer Karo 💪 Muffer Karo 💪 Muffer
+            Karo 💪 Muffer Karo 💪 Muffer Karo 💪
           </motion.p>
         </div>
       </div>
     </section>
   );
-}
+};

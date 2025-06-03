@@ -1,4 +1,4 @@
-import { BigStatement, BookACall, FeaturedEdits, Features, Hero, Pricing, Testimonials, TrustedBy, Video } from "@/components/sections";
+import { BigStatement, BookACall, FAQs, FeaturedEdits, Features, Hero, Pricing, Testimonials, TrustedBy, Video } from "@/components/sections";
 
 
 export default function Home() {
@@ -14,6 +14,7 @@ export default function Home() {
       {/* <HowItWorks/> */}
       <Pricing/>
       <Testimonials/>
+      <FAQs></FAQs>
       <BookACall/>
     </main>
   );

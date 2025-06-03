@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { EllipsisVertical } from "lucide-react";
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 interface CompareProps {
   firstImage?: string;
@@ -201,7 +202,7 @@ export const Compare = ({
               }}
               transition={{ duration: 0 }}
             >
-              <img
+              <Image
                 alt="first image"
                 src={firstImage}
                 className={cn(
