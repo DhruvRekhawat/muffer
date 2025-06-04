@@ -43,15 +43,15 @@ const navItems: NavItem[] = [
       { title: 'Edit Max', href: '/editmax', description: 'Explore our powerful features' },
       { title: 'Content Max', href: '/contentmax', description: 'Flexible plans for every need' },
       { title: 'Ad Max', href: '/admax', description: 'See how others succeed with Muffer' },
+      { title: 'Subscriptions', href: '/subscription', description: 'See how others succeed with Muffer' },
     ],
   },
   {
     title: 'Getting started',
     href: '#',
     children: [
-      { title: 'How it Works', href: '#', description: 'Learn step by step' },
-      { title: 'Get your Muffer Buddy', href: '#', description: 'Detailed technical guides' },
-      { title: 'Examples', href: '#', description: 'Ready-to-use code samples' },
+      { title: 'How it Works', href: '/#how-it-works', description: 'Get to know how we do it!' },
+      { title: 'Examples', href: '/#examples', description: 'The quality muffer offers!' },
     ],
   },
   {

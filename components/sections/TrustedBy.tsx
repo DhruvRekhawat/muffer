@@ -9,7 +9,7 @@ import Logoipsum1 from "@/public/logos/logoipsum-1.svg";
 import Logoipsum2 from "@/public/logos/logoipsum-2.svg";
 import Logoipsum3 from "@/public/logos/logoipsum-3.svg";
 import Logoipsum4 from "@/public/logos/logoipsum-4.svg";
-import Logoipsum5 from "@/public/logos/logoipsum-5.svg";
+import Influe from "@/public/logos/Influe-logo-.svg";
 import SBILogo from "@/public/logos/sbi-state-bank-of-india.svg";
 import KUKULogo from "@/public/logos/KukuFM192-192.svg";
 import StardewLogo from "@/public/logos/stardew_logo.svg";
@@ -27,7 +27,7 @@ const TrustedBy: React.FC = () => {
     { id: 2, name: 'Spotify', img: Logoipsum2 },
     { id: 3, name: 'AKQA', img: Logoipsum3 },
     { id: 4, name: 'Linktree', img: Logoipsum4 },
-    { id: 5, name: '27b', img: Logoipsum5 },
+    { id: 5, name: '27b', img: Influe },
     { id: 6, name: 'Ogilvy', img: SBILogo },
     { id: 7, name: 'KUKU FM', img: KUKULogo },
     { id: 8, name: 'Stardew Labs', img: StardewLogo },
